@@ -55,6 +55,71 @@
         /*第一屏*/
         /*邀请函*/
 
+        /*音乐*/
+        .music{
+            position: absolute;
+            z-index: 1111;
+            left: 87%;
+            top: 9%;
+            z-index: 1000;
+        }
+        .open{
+            /*-webkit-animation: moveIconRo ease 3.5s both infinite;*/
+            -webkit-animation: moveRo linear 3.5s  infinite;
+            animation-delay:0s;
+        }
+        .icon-music{
+            width: 25px;
+            height: 25px;
+            background: url(images/icon-muisc.png);
+            background-size: 100% 100%;
+            display: block;
+        }
+        .music-span{
+            position: absolute;
+            top: -5px;
+            left: 6px;
+            width: 12px;
+            height: 12px;
+            background: url(images/music-span.png);
+            background-size: 100% 100%;
+            -webkit-animation: openIconRo ease 1.2s both infinite;
+            animation: openRo ease 1.2s both infinite;
+            z-index: -1;
+        }
+
+
+        .music_text{
+            color: #000;
+            margin-left: 5px;
+            font-size: 20px;
+            opacity: 0;
+        }
+
+        @keyframes show_hide{
+            from{
+                opacity: 0;
+            }to{
+                 opacity: 1;
+             }
+        }
+        @-webkit-keyframes show_hide{
+            from{
+                opacity: 0;
+            }to{
+                 opacity: 1;
+             }
+        }
+
+        .show_hide{
+            animation: show_hide 1s linear infinite alternate;
+            -webkit-animation: show_hide 1s linear infinite alternate;
+        }
+        .xin_info{
+            opacity: 0;
+        }
+        /*音乐结束*/
+
 
 
     </style>
@@ -248,6 +313,14 @@
 
 </div>
 
+<!--音乐-->
+<div class="music">
+    <i class="icon-music open" num="1"></i>
+    <i class="music-span"></i>
+    <audio id="aud" src="images/music.mp3"  loop="loop" autoplay="autoplay"></audio>
+    <div class="music_text">开启</div>
+</div>
+
 <script>
     /*animate.css拓展*/
     $.fn.extend({
@@ -302,6 +375,32 @@
 
 
     })
+
+    /*音乐js*/
+    $(".music").click(function(){
+        if($(".icon-music").attr("num") == "1"){
+            $(".icon-music").removeClass("open");
+            $(".icon-music").attr("num","2");
+            $(".music-span").css("display","none");
+            document.getElementById("aud").pause();
+            $(".music_text").html("关闭");
+            $(".music_text").addClass("show_hide");
+            setTimeout(musicHide,2000);
+        }else{
+            $(".icon-music").attr("num","1");
+            $(".icon-music").addClass("open");
+            $(".music-span").css("display","block");
+            document.getElementById("aud").play();
+            $(".music_text").html("开启");
+            $(".music_text").addClass("show_hide");
+            setTimeout(musicHide,2000);
+        }
+        function musicHide(){
+            $(".music_text").removeClass("show_hide");
+        };
+
+    });
+    /*音乐js结束*/
 
 </script>
 
