@@ -55,6 +55,45 @@
         /*第一屏*/
         /*邀请函*/
 
+        /*音乐按钮动画*/
+
+        @-webkit-keyframes moveRo {
+            from {-webkit-transform: rotate(360deg);  }
+            to { -webkit-transform: rotate(-360deg); }
+        }
+        @keyframes moveRo {
+            from {  transform: rotate(-360deg)}
+            to {  transform: rotate(360deg); }
+        }
+
+        @-webkit-keyframes openRo {
+            from { }
+            to { -webkit-transform: translateY(100%)
+            ;}
+        }
+        @keyframes openRo {
+            from { }
+            to { -webkit-transform: translateY(100%) ; transform: translateY(100%);
+
+            }
+        }
+
+        /*小音符动画*/
+
+        @-webkit-keyframes openIconRo {
+            0% { -webkit-transform: translateY(100%); opacity:0;}
+            50% { -webkit-transform: translateY(0%); opacity:0.5;}
+            100% { -webkit-transform: translateY(-100%); opacity:0;}
+        }
+        @keyframes openIconRo {
+            0% { -webkit-transform: translateY(100%);
+                transform: translateY(100%);
+                opacity:0;
+            }
+            50% { -webkit-transform: translateY(0%); transform: translateY(0%); opacity:0.5;}
+            100% { -webkit-transform: translateY(-100%); transform: translateY(-100%); opacity:0;}
+        }
+
         /*音乐*/
         .music{
             position: absolute;
