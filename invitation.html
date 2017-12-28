@@ -9,6 +9,8 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/swiper.min.js"></script>
     <script src="js/swiper.animate.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/quping.js"></script>
 
     <style>
         *{
@@ -437,6 +439,65 @@
 
     });
     /*音乐js结束*/
+
+    /*微信接口调用*/
+    qp.cfg.jsonUrl= 'http://10.0.0.8:8000/server/?cb=?';
+    /*生成随机字符串*/
+    function createNoncestr (){
+        var str= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var val = "";
+        for (var i = 0; i < 16; i++) {
+            val += str.substr(Math.round((Math.random() * 10)), 1);
+        }
+        return val;
+    }
+    var wxData={
+        noncestr:createNoncestr()
+    };
+
+    /*获取微信ticket*/
+    qp.json.get({
+        act:'ticket',
+        cls:'jsapi'
+    },function(data){
+        wx.config({
+            debug: false,
+            appId: 'wx1c44c6057b597693',
+            timestamp:new Date().getTime(),
+            nonceStr: wxData.noncestr,
+            signature: data.ticket,
+            jsApiList: [
+                'onMenuShareTimeline',       // 分享到朋友圈接口
+                'onMenuShareAppMessage',  //  分享到朋友接口
+                'onMenuShareQQ'           // 分享到qq接口
+            ]
+        });
+    });
+
+    /*分享给朋友接口*/
+    wx.ready (function () {
+        var shareData = {
+            imgUrl : 'http://10.0.0.8:8000/client/img/logo_512.png',
+            link :'http://10.0.0.8:8000/client/party/2018/invitation.html' ,
+            desc : '尊耀汇2018年年会邀请函',
+            title : '尊耀汇2018年年会邀请函',
+            success : function () {}
+            };
+        wx.onMenuShareTimeline (shareData);
+        wx.onMenuShareAppMessage (shareData);
+        wx.onMenuShareQQ (shareData);
+    });
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>
